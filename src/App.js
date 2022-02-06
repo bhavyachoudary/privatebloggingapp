@@ -1,24 +1,34 @@
 import React,{Suspense} from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 const Register =React.lazy(()=>import('./components/Register/Registration')) ;
 const Login =React.lazy(()=>import('./components/Login/Login')) ;
 const ForgotPassword =React.lazy(()=>import('./components/Forgotpassword/ForgotPassword')) ;
 const Navbar =React.lazy(()=>import('./components/Headers/Headers')) ;
 const Footer =React.lazy(()=>import('./components/Footer/Footer')) ;
-
+const Dashboard =React.lazy(()=>import('./components/Dashboard/Dashboard')) ;
+const CreateBlog =React.lazy(()=>import('./components/CreateBlog/CreateBlog')) ;
+const MyPost =React.lazy(()=>import('./components/Posts/Posts')) ;
+const SinglePage =React.lazy(()=>import('./components/SinglePage/BlogPage')) ;
+const Profile=React.lazy(()=>import('./components/Profile/Profile')) ;
 function App() {
   return (
     <>
-      <Suspense fallback={<div><img src='./images/Loading.gif' alt="Loading..."/></div>}>
+      <Suspense fallback={<div><img src='./images/loading2.gif' alt="Loading..."/></div>}>
       <Router>
+        <Navbar/>
         <Routes>
-          <Route path="/navbar" element={<Navbar />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register/>} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/footer" element={<Footer />} />
+          <Route path="/" element={<Dashboard/>} />
+          <Route path="/createblog" element={<CreateBlog/>} />
+          <Route path="/myposts" element={<MyPost/>} />
+          <Route path="/preview" element={<SinglePage/>} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
+        <Footer/>
       </Router>
   </Suspense>
     </>

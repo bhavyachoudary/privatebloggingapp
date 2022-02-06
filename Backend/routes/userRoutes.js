@@ -35,7 +35,8 @@ router.post("/upload", upload, userCtrl.multer)
 router.put("/changepassword/:id", userCtrl.changepass)
 router.post("/sendmailotp", userCtrl.sendotp)
 router.post("/forgotpassword", userCtrl.forgotpassword)
-
+router.get('/getprofile/:email',userCtrl.getprofile)
+router.put('/updprofile/:id', userCtrl.updateprofile)
 
 
 module.exports = router

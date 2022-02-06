@@ -12,11 +12,11 @@ app.use(express.static(path.join(__dirname, "./public/")));
 const connectDB = require('./config/db')
 connectDB()
 
-
 const router = require('./routes/userRoutes')
 app.use('/api/blog', router)
 
-
+const router1 = require('./routes/blogRoutes')
+app.use('/api/blog', router1)
 
 
 app.listen(port, (err) => {

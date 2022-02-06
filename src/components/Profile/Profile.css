@@ -1,0 +1,29 @@
+.img {
+    height:120px;
+    width:120px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .settingsPPIcon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: lightcoral;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-left: 10px; */
+    cursor: pointer;
+  }
+  .bgcontainer{
+    background-image:url("/public/images/blogs5.jpg");
+    height: 100vh;
+    background-size: cover;
+      
+     
+    }
+    .bg-contain{
+        background-color:#FDEBF7 ;
+    }

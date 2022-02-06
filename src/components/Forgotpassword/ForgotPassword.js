@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Container, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
-import { forgotPassword, getOtp, sendMailotp } from '../config/Myservice'
+import { forgotPassword, getOtp, sendMailotp } from '../../config/Myservices';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
@@ -85,7 +85,7 @@ function ForgotPassword() {
 
     return (
         <>
-            <Container className="bg-light w-50 mt-1">
+            <Container className="bg-light p-4 mt-5 mb-3 w-50  shad">
                 <h2 className="text-center pt-1">Forgot Password</h2>
                 <Form onSubmit={changepassword}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -11,11 +11,9 @@ const userCtrl = {
         let lname = req.body.lname;
         let email = req.body.email;
         let password = req.body.password;
-        let phone = req.body.phone;
-        let gender = req.body.gender;
-        
+        // let imgpath = req.file.filename;
         const passwordHash = await bcrypt.hash(password, 10)
-        let ins = new Users({ name: name, lname: lname, email: email, password: passwordHash, phone: phone, gender: gender ,imagePath:'c.jpg'});
+        let ins = new Users({ name: name, lname: lname, email: email, password: passwordHash});
         await ins.save((err) => {
             if (err) {
                 res.status(200).json({status:401, "err": "Please fill the form" })
@@ -65,7 +63,7 @@ const userCtrl = {
                 res.status(200).json({status:401, "msg": "Somethong Went Wrong" })
             }
             else if (data == null) {
-                let ins = new Users({ name: name, lname: lname, email: email, password: passwordHash, phone: "9666777553", gender: "female",imagePath:'c.jpg' });
+                let ins = new Users({ name: name, lname: lname, email: email, password: passwordHash, imagePath:'c.jpg' });
                 ins.save((err) => {
                     if (err) {
                         res.status(200).json({status:401, "msg": "Somethong Went Wrong" })
@@ -86,6 +84,18 @@ const userCtrl = {
         })
 
     },
+    getprofile: (req, res) => {
+        let email = req.params.email;
+        console.log(email)
+        Users.findOne({ email: email }, (err, data) => {
+            if (err) {
+                res.status(200).json({status:401, err: err })
+            }
+            else{
+            res.status(200).json({status:200, user: data})
+            }
+        })
+    },
     multer: (req, res) => {
         if (req.file) {
             console.log(req.file)
@@ -103,6 +113,22 @@ const userCtrl = {
 
         }
 
+    },
+    updateprofile: (req, res) => {
+        let id = req.params.id;
+        let name = req.body.name;
+        let lname = req.body.lname;
+        let email = req.body.email;
+      
+        console.log(name)
+        // let password = req.body.password;
+        Users.updateOne({ _id: id }, { $set: { name: name, lname: lname, email: email} }, (err) => {
+            if (err) {
+                res.status(200).json({status:401,  err: err })
+            }else{
+            res.status(200).json({ msg: "Userprofile has Updated Succesfully" });
+            }
+        })
     },
 
     forgotpassword: async (req, res) => {

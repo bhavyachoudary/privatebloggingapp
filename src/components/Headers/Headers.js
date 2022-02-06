@@ -5,9 +5,7 @@ import {BiUserCircle,BiLogInCircle} from 'react-icons/bi';
 import { FaUserEdit ,FaRegistered} from "react-icons/fa";
 import {HiLogout} from 'react-icons/hi';
 import { useNavigate } from 'react-router';
-import styles from '../Headers/Headers.modules.css'
-
-
+import styles from './Headers.module.css';
 
 
 function Headers() {
@@ -18,10 +16,10 @@ function Headers() {
     }
 
     return (
-        <Container>
+        <div>
             <Navbar bg="dark" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home"><h2 className={styles.colo}>Blog<span >Book</span></h2></Navbar.Brand>
+                    <Navbar.Brand href="#home"><h2 className={styles.colo}>Blog<span className="text-danger" >Book</span></h2></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarscroll" />
                     <Navbar.Collapse id="navbarscroll">
                         <Container className="d-flex justify-content-center" style={{ maxHeight: '100px', fontSize: "17px" }}>
@@ -29,7 +27,7 @@ function Headers() {
                             {sessionStorage.getItem('user')?
                             <>
                             <Nav.Link href="/myposts" className="text-white">MyPosts</Nav.Link>
-                            <Nav.Link href="/createpost" className="text-white">CreatePost</Nav.Link>
+                            <Nav.Link href="/createblog" className="text-white">CreateBlog</Nav.Link>
                             </>:''}
                         </Container>
 
@@ -52,7 +50,7 @@ function Headers() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        </Container>
+        </div>
     )
 }
 
