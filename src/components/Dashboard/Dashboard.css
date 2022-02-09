@@ -1,34 +1,44 @@
-
-  .blogDes{
-    font-size: 18px;
-    font-weight: bold;
-    font-style: italic;
-  }
-  .bgcontain{
-    background-image: linear-gradient(#FDEBF7,#FFA1C9);
-  }
-  .pic{
-    width: 100%;
+.blogDes {
+  font-size: 18px;
+  font-weight: bold;
+  font-style: italic;
+}
+.bgcontain {
+  background-color: #fdebf7;
+}
+.blog {
+  color: #323232;
+}
+.search {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: gray;
+}
+.pic {
+  width: 100%;
   height: 280px;
   object-fit: cover;
-  border-radius: 7px; 
-  }
-  .postTitle{
-    font-family: "Josefin Sans", sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    margin-top: 15px;
-    cursor: pointer;
-  }
-  .postDate{
-    font-family: "Lora", serif;
-    font-style: italic;
-    font-size: 13px;
-    color: #999;
-    margin-top: 15px;
-  }
-  .postDes{
-    font-family: "Varela Round", sans-serif;
+  border-radius: 7px;
+}
+.img {
+  height: 500px;
+}
+.postTitle {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 15px;
+  cursor: pointer;
+}
+.postDate {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #999;
+  margin-top: 15px;
+}
+.postDes {
+  font-family: "Varela Round", sans-serif;
   font-size: 14px;
   color: #444;
   line-height: 24px;
@@ -38,7 +48,11 @@
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  }
- 
-  
-  
+}
+.heigh {
+  min-height: 650px;
+  line-height: 20px;
+}
+.img {
+  height: 400px;
+}

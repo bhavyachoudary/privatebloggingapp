@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+// Connection with database
 const db = "mongodb://localhost:27017/privateblog";
 async function connectDB() {
     try {

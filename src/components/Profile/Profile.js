@@ -37,26 +37,6 @@ export default function Profile() {
     }, []);
 
 
-
-    const onFormSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("file", document.getElementById("files").files[0]);
-        formData.append("email", email);
-        const config = {
-            headers: {
-                "content-type": "multipart/form-data",
-            },
-        };
-        axios
-            .post("http://localhost:9999/api/blog/upload", formData, config)
-            .then((res) => {
-                console.log(res.data);
-                success("The file is successfully uploaded");
-            });
-        window.location.reload();
-    };
-
     const updateProfile = (id) => {
         let data = {
             name: name,
@@ -78,150 +58,127 @@ export default function Profile() {
         <Container fluid className="bg-contain">
             <Container className="pt-3 pb-3  ">
                 <Row>
-                    <Col lg={6}>
-                        {!showInvoice && (
-                            <Container>
-                                <Card className="shad p-5  text-center">
-                                    <div className="settingsPP">
-                                        <form onSubmit={onFormSubmit}>
-                                            <div>
-                                                <img
-                                                    src={`/images/${user.imagePath}`}
+                    {!showInvoice && (
+                        <Container className="shad col-lg-6 p-5" >
 
-                                                    className="img"
-                                                />
-                                                {/* <h4 className="text-danger">{user.name}</h4> */}
-                                                <label htmlFor="files">
+                            <div className="settingsPP">
+                                <div>
+                                    <img
+                                        src={`/images/${user.imagePath}`}
+                                        className="img"
+                                    />
+                                    {/* <h4 className="text-danger">{user.name}</h4> */}
+                                </div>
+                            </div>
+                            <Card.Body style={{ fontSize: "20px", fontWeight: "bold" }}>
+                                <Card.Text>
+                                    FirstName:&nbsp; <span>{user.name} </span>
+                                </Card.Text>
+                                <Card.Text>
+                                    {" "}
+                                    <span>LastName:&nbsp;{user.lname} </span>{" "}
+                                </Card.Text>
+                                <Card.Text>
+                                    <span> Email:&nbsp;{user.email}</span>
+                                </Card.Text>
 
-                                                    <i className="settingsPPIcon">
-                                                        <FaCamera />
-                                                    </i>{" "}
-                                                </label>
-                                                <input
-                                                    type="file"
-                                                    style={{ display: "none" }}
-                                                    id="files"
-                                                    name="myImage"
-                                                    className=" mb-2"
-                                                />
-                                            </div>
-                                            <button type="submit" className="mb-2 mt-2 btn btn-secondary">
-                                                Upload
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <Card.Body style={{ fontSize: "20px", fontWeight: "bold" }}>
-                                        <Card.Text>
-                                            FirstName:&nbsp; <span>{user.name} </span>
-                                        </Card.Text>
-                                        <Card.Text>
-                                            {" "}
-                                            <span>LastName:&nbsp;{user.lname} </span>{" "}
-                                        </Card.Text>
-                                        <Card.Text>
-                                            <span> Email:&nbsp;{user.email}</span>
-                                        </Card.Text>
-
-                                        <hr />
-                                        <Button
-                                            variant="primary"
-                                            onClick={() => setShowInvoice(true)}
-                                        >
-                                            Edit profile
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
-                            </Container>
-                        )}
-                        {showInvoice && (
-                            <Container className="m-1">
-                                <Card
-                                    style={{ width: "500px", height: "400px" }}
-                                    className="m-1 p-4"
+                                <hr />
+                                <Button
+                                    variant="dark"
+                                    onClick={() => setShowInvoice(true)}
                                 >
-                                    <h2 className="text-center pt-3 p-3">Update Profile </h2>
-                                    <Form>
-                                        <Form.Group as={Row} className="mb-3">
-                                            <Form.Label column sm="3">
-                                                <b>First Name</b>
-                                            </Form.Label>
-                                            <Col sm="8">
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter Name"
-                                                    name="lname"
-                                                    defaultValue={user.name}
-                                                    onChange={(e) => {
-                                                        setName(e.target.value);
-                                                    }}
-                                                />
-                                                {name != "" && name.length < 4 && (
-                                                    <span className="text-danger">
-                                                        Enter Name correctly
-                                                    </span>
-                                                )}
-                                            </Col>
-                                        </Form.Group>
-                                        <Form.Group as={Row} className="mb-3">
-                                            <Form.Label column sm="3">
-                                                <b>Last Name</b>
-                                            </Form.Label>
-                                            <Col sm="8">
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter Name"
-                                                    name="fname"
-                                                    defaultValue={user.lname}
-                                                    onChange={(e) => {
-                                                        setLname(e.target.value);
-                                                    }}
-                                                />
-                                                {lname != "" && lname.length < 4 && (
-                                                    <span className="text-danger">
-                                                        Enter Name correctly
-                                                    </span>
-                                                )}
-                                            </Col>
-                                        </Form.Group>
-                                        <Form.Group as={Row} className="mb-3">
-                                            <Form.Label column sm="3">
-                                                <b>Email</b>
-                                            </Form.Label>
-                                            <Col sm="8">
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter Email"
-                                                    name="email"
-                                                    defaultValue={user.email}
-                                                    readOnly
-                                                />
-                                                {email != "" && !regForEmail.test(email) && (
-                                                    <span className="text-danger">
-                                                        Enter email correctly
-                                                    </span>
-                                                )}
-                                            </Col>
-                                        </Form.Group>
+                                    Edit profile
+                                </Button>
+                            </Card.Body>
 
-                                        <Button
-                                            variant="info"
-                                            onClick={() => updateProfile(user._id)}
-                                            className="mt-3"
-                                        >
-                                            Update
-                                        </Button>
-                                        <Button
-                                            variant="danger"
-                                            onClick={() => setShowInvoice(false)}
-                                            className="mt-3 ml-3"
-                                        >
-                                            Close
-                                        </Button>
-                                    </Form>
-                                </Card>
+                        </Container>
+                    )}
+                    {showInvoice && (
+                        <Container className="m-1">
+                            <Container className="col-lg-6 shad p-5">
+                                <h2 className="text-center pt-3 p-3">Update Profile </h2>
+                                <Form>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <Form.Label column sm="3">
+                                            <b>First Name</b>
+                                        </Form.Label>
+                                        <Col sm="8">
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Enter Name"
+                                                name="lname"
+                                                defaultValue={user.name}
+                                                onChange={(e) => {
+                                                    setName(e.target.value);
+                                                }}
+                                            />
+                                            {name != "" && name.length < 4 && (
+                                                <span className="text-danger">
+                                                    Enter Name correctly
+                                                </span>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <Form.Label column sm="3">
+                                            <b>Last Name</b>
+                                        </Form.Label>
+                                        <Col sm="8">
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Enter Name"
+                                                name="fname"
+                                                defaultValue={user.lname}
+                                                onChange={(e) => {
+                                                    setLname(e.target.value);
+                                                }}
+                                            />
+                                            {lname != "" && lname.length < 4 && (
+                                                <span className="text-danger">
+                                                    Enter Name correctly
+                                                </span>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <Form.Label column sm="3">
+                                            <b>Email</b>
+                                        </Form.Label>
+                                        <Col sm="8">
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Enter Email"
+                                                name="email"
+                                                defaultValue={user.email}
+                                                readOnly
+                                            />
+                                            {email != "" && !regForEmail.test(email) && (
+                                                <span className="text-danger">
+                                                    Enter email correctly
+                                                </span>
+                                            )}
+                                        </Col>
+                                    </Form.Group>
+
+                                    <Button
+                                        variant="info"
+                                        onClick={() => updateProfile(user._id)}
+                                        className="mt-3"
+                                    >
+                                        Update
+                                    </Button>
+                                    <Button
+                                        variant="danger"
+                                        onClick={() => setShowInvoice(false)}
+                                        className="mt-3 ml-3"
+                                    >
+                                        Close
+                                    </Button>
+                                </Form>
                             </Container>
-                        )}
-                    </Col>
+
+                        </Container>
+                    )}
 
                 </Row>
             </Container>

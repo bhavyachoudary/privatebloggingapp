@@ -3,6 +3,11 @@ import { Container, Row, Col, Button, Card, Modal, Form, FloatingLabel, FormLabe
 import { getBlogdata, editedBlog } from '../../config/Myservices';
 import { useNavigate } from "react-router";
 import './Posts.css';
+import { Editor } from 'react-draft-wysiwyg';
+import { convertToRaw, EditorState, convertFromHTML, ContentState } from 'draft-js'
+import draftToHtml from 'draftjs-to-html';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import { convertFromHTML } from 'draft-convert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,8 +18,25 @@ export default function Posts() {
     const [status, setStatus] = useState(false);
     const [blogid, setBlogid] = useState('');
     const [title, setTitle] = useState('');
-    const [des, setDes] = useState('');
+    let [des, setDes] = useState('');
+    const [tags, setTags] = useState('')
+    const [details, setDetails] = useState('');
     const navigate = useNavigate();
+
+    const onEditorStateChange = (editorState) => {
+        setDes(editorState)
+    }
+
+    // let editorState = EditorState.createWithContent(
+    //     ContentState.createFromBlockArray(
+    //         convertFromHTML(details)
+    //         // `${details.description}`)
+    //         //     details.description !== undefined
+    //         //         ? `${details.description}`
+    //         //         : " <p>Hello All SS</p>"
+    //         // )
+    //     )
+    // );
     const [errors, setError] = useState({
         err_title: '', des: ''
     })
@@ -46,6 +68,8 @@ export default function Posts() {
         setBlogid(id)
         setTitle(data.title)
         setDes(data.des)
+        setTags(data.tags)
+        // setDetails(data.des)
         setShowadd(true);
         console.log(showadd)
     }
@@ -55,7 +79,7 @@ export default function Posts() {
         let update = true;
         console.log("Add edited blog")
         //let email = sessionStorage.getItem('user')
-        let data = { title: title, des: des, update: update }
+        let data = { title: title, des: des, tags: tags, update: update }
         console.log(data)
         editedBlog(blogid, data)
             .then((res) => {
@@ -73,9 +97,7 @@ export default function Posts() {
         window.location.reload(false);
     }
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const handleClose = () => setShowadd(false);
 
     const singleitem = (id) => {
         console.log(id)
@@ -88,78 +110,109 @@ export default function Posts() {
     }
 
     return (
+        <div>
+            <img src="/images/b3.jpg" className="w-100 img img-fluid" />
+            <Container fluid className="pt-3 pb-3  bgcontain">
+                {blogData.length !== 0 ?
+                    <Row>
+                        {blogData.map((item, i) =>
+                        (
+                            <Container className="d-flex justify-content-center">
+                                <Col lg={10} key={item._id}>
 
-        <Container fluid className="pt-3 pb-3  bgcontain">
-            <Row>
-                {blogData.map((item, i) =>
-                (
-                    <Container className="d-flex justify-content-center">
-                        <Col lg={10} key={item._id}>
+                                    <Card className="m-3 shad  p-3">
+                                        <Row>
+                                            <Col lg={4}>
+                                                <img src={`/images/${item.myImage}`} width="260px" className="blogs img" />
+                                            </Col>
+                                            <Col lg={8}>
 
-                            <Card className="m-3 shad  p-3">
-                                <Row>
-                                    <Col lg={4}>
-                                        <img src={`/images/${item.blogProfile}`} height="200px" width="260px" className="blogs" />
-                                    </Col>
-                                    <Col lg={8}>
+                                                <Card.Body>
+                                                    <Card.Title className="title">{item.title}</Card.Title>
+                                                    <div dangerouslySetInnerHTML={{ __html: item.des }} >
+                                                    </div>
+                                                    <a href="https://www.bing.com/images/search?q=travelling&qpvt=travelling&tsc=ImageHoverTitle&form=IGRE&first=1" target="_blank" className="des">{item.tags} </a>
+                                                </Card.Body>
 
-                                        <Card.Body>
-                                            <Card.Title className="title">{item.title}</Card.Title>
-                                            <div dangerouslySetInnerHTML={{ __html: item.des }} >
+                                                <div className="d-flex justify-content-end mr-5">
+                                                    <button type="button" className="button btn btn-warning mr-2 " data-bs-toggle="modal" data-bs-target="#myModal" onClick={(e) => editBlog(e, item._id, item)} >Edit</button>
+                                                    {/* <Button variant="warning" className="button mr-2" onClick={handleShow}>Edit</Button>  */}
+                                                    <Button variant="dark" className="button" onClick={() => singleitem(item._id)}>Veiw</Button>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </Card>
+                                </Col>
 
-                                            </div>
-                                            {/* <Card.Text  className="des">{item.des}</Card.Text> */}
-                                        </Card.Body>
+                                {showadd ? (
+                                    <Modal show={showadd} onHide={handleClose} >
+                                        <Modal.Header closeButton>
+                                            <Modal.Title >Edit Your Blog </Modal.Title>
+                                        </Modal.Header>
 
-                                        <div className="d-flex justify-content-end">
-                                            <button type="button" className="button btn btn-warning mr-2 " data-bs-toggle="modal" data-bs-target="#myModal" onClick={(e) => editBlog(e, item._id, item)} >Edit</button>
-                                            {/* <Button variant="warning" className="button mr-2" onClick={handleShow}>Edit</Button>  */}
-                                            <Button variant="primary" className="button" onClick={() => singleitem(item._id)}>Preview</Button>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Card>
-                        </Col>
+                                        <Modal.Body>
+                                            <Form >
+                                                <Form.Group className="mb-3" >
+                                                    <Form.Label><b>Title:</b></Form.Label>
+                                                    <Form.Control type="text" name="title" placeholder='Enter Title' value={title} onChange={(e) => { setTitle(e.target.value) }} className="form-control" />
+                                                    <span style={{ color: 'red' }}>{errors.err_title}</span>
+                                                </Form.Group>
+                                                {/* <Editor
+                                                    editorState={des}
+                                                    toolbarClassName="toolbarClassName"
+                                                    wrapperClassName="wrapperClassName"
+                                                    editorClassName="editorClassName"
+                                                    onEditorStateChange={onEditorStateChange}
+                                                    editorStyle={{ border: '1px solid white', height: '200px' }}
+                                                />
+                                                <textarea
+                                                    style={{ display: "none" }}
+                                                    disabled
+                                                    onChange={(e) => {
+                                                        setDes(e.target.value);
+                                                    }}
+                                                    ref={(val) => (des = val)}
+                                                    value={draftToHtml(
+                                                        convertToRaw(
+                                                            des.getCurrentContent()
+                                                        )
+                                                    )}
+                                                /> */}
 
-                        {showadd ? (
-                            <Modal show={showadd} add onHide={handleClose} >
-                                <Modal.Header closeButton>
-                                    <Modal.Title >Edit Your Blog </Modal.Title>
-                                </Modal.Header>
+                                                <FloatingLabel className="mb-3">
+                                                    <Form.Label><b>Body:</b></Form.Label>
+                                                    <Form.Control as="textarea" cols="20" rows="5" placeholder="Enter Description" name="des" id="des" value={des} onChange={(e) => { setDes(e.target.value) }} />
+                                                    {/* <span style={{ color: 'red' }}>{errors.err_des}</span> */}
+                                                </FloatingLabel>
+                                                <Form.Group className="mb-3 mt-3">
+                                                    <Form.Label ><b>Tags: </b></Form.Label>
+                                                    <Form.Control type="text" placeholder="Enter Tags Name" id="tags" name="tags" value={tags} onChange={(e) => { setTags(e.target.value) }} required />
+                                                    {tags != '' && tags.length < 4 && <span className="text-danger">Enter unique tags*</span>}
+                                                </Form.Group>
+                                                <div style={{ textAlign: "center" }}>
+                                                    <Button variant="success" type="submit" onClick={(event) => updatedBlog(event, item._id)} >Save</Button>
+                                                    <Button variant="dark" className="ml-5" onClick={() => singleitem(blogid)} > Preview </Button>
+                                                </div>
+                                            </Form>
 
-                                <Modal.Body>
-                                    <Form >
+                                        </Modal.Body>
 
-                                        <Form.Group className="mb-3" >
-                                            <Form.Label><b>Title:</b></Form.Label>
-                                            <Form.Control type="text" name="title" placeholder='Enter Title' value={title} onChange={(e) => { setTitle(e.target.value) }} className="form-control" />
-                                            <span style={{ color: 'red' }}>{errors.err_title}</span>
-                                        </Form.Group>
+                                    </Modal>
+                                ) : ''}
+                            </Container>
+                        )
 
-                                        <FloatingLabel className="mb-3">
-                                            <Form.Label><b>Body:</b></Form.Label>
-                                            <Form.Control as="textarea" placeholder="Enter Description" name="des" id="des" value={des} onChange={(e) => { setDes(e.target.value) }} />
+                        )}
 
-                                            <span style={{ color: 'red' }}>{errors.err_des}</span>
-                                        </FloatingLabel>
+                    </Row>
+                    :
+                    <div className="text-center">
+                        <h2 classNAme="tect-danger">No Posts Found</h2>
 
-                                        <div style={{ textAlign: "center" }}>
-                                            <Button variant="warning" onClick={handleClose} > Close </Button>
-                                            <Button variant="primary" type="submit" onClick={(event) => updatedBlog(event, item._id)} >Update</Button>
-                                        </div>
-                                    </Form>
-
-                                </Modal.Body>
-
-                            </Modal>
-                        ) : ''}
-                    </Container>
-                )
-
-                )}
-
-            </Row>
-        </Container>
+                    </div>
+                }
+            </Container>
+        </div >
 
     )
 }

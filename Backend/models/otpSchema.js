@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// otp schema
 const otpSchema = new mongoose.Schema({
     code: {
         type: String

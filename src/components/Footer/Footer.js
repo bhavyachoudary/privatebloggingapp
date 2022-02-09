@@ -8,7 +8,7 @@ const regForEmail = RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 function Footer() {
     const [value, setValue] = useState('');
     const navigate = useNavigate();
-    
+
     const success = (data) => toast.success(data, { position: toast.POSITION.TOP_CENTER });
     const failure = (data) => toast.error(data, { position: toast.POSITION.TOP_CENTER });
     const warning = (data) => toast.warn(data, { position: toast.POSITION.TOP_CENTER });
@@ -28,11 +28,11 @@ function Footer() {
     }
     return (
         <div>
-            <div className='bg-dark footer p-5'>
+            <div className='head footer p-5'>
                 <Row>
                     <Col style={{ color: 'white' }}>
-                        <ul className='list-unstyled'><h4>About Company</h4>
-                            <li><a href="" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>NeoSOFT Technologies is here at your quick and easy service for Shopping</a></li>
+                        <ul className='list-unstyled'><h4>About Website</h4>
+                            <li><a href="" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Blog Book is used to create our own blogs and display over there and publisg when ever we we want.</a></li>
                             <li><a href="" target="_blank" style={{ textDecoration: 'none', color: 'white' }}> Contact Information</a></li>
                             <li><a href="mailto:https://www.gmail.com" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Email : contact@neosofttech.com</a></li>
                             <li><a href="tel:+91-9876543210" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Phone : +91 9884312345</a></li>
@@ -45,7 +45,7 @@ function Footer() {
                             <li><a href="" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Gaurantee and Return Policy</a></li>
                             <li><a href="" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Contact Us</a></li>
                             <li><a href="" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Privacy Policy</a></li>
-                            <li><a href="https://www.google.com/maps/place/NeoSoft+Technologies+Pvt+Ltd/@12.9248619,77.6318783,17z/data=!3m1!4b1!4m5!3m4!1s0x3bae1461cedd72cd:0xaf90c635b8fab72!8m2!3d12.9248619!4d77.634067" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Locate Us</a></li>
+                            <li><a href="https://www.blogger.com/about/" target="_blank" style={{ textDecoration: 'none', color: 'white' }}>Locate Us</a></li>
                         </ul>
                     </Col>
                     <Col style={{ color: 'white' }}>

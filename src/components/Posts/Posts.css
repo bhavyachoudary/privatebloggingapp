@@ -1,19 +1,24 @@
-.bgcontain{
-    background-image: linear-gradient(#FDEBF7,#FFA1C9);
-  }
-  .blogs{
-    border-radius: 20px;
-  }
-  .title{
-    font-family: "Josefin Sans", sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-  
-    cursor: pointer;
-  }
-  .des{
-    font-family: "Varela Round", sans-serif;
-    font-size: 14px;
-    color: #444;
-  
-  }
+.bgcontain {
+  background-color: #fdebf7;
+}
+.blogs {
+  border-radius: 20px;
+}
+.title {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+.des {
+  font-family: "Varela Round", sans-serif;
+  font-size: 14px;
+  color: #444;
+}
+.img {
+  height: 450px;
+}
+.img1 {
+  height: 400px;
+}

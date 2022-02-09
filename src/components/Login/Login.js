@@ -96,47 +96,39 @@ export default function Login() {
                                 <h2 className="text-center">Login Page</h2>
                                 <Container className="p-3">
                                     <Form.Group className="mb-3">
-                                       
-                                            <FormLabel>Name:</FormLabel>
-                                     
+                                        <FormLabel>Email:</FormLabel>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter Email"
+                                            name="email"
+                                            onChange={(e) => {
+                                                setEmail(e.target.value);
+                                            }}
+                                        />
+                                        {email != "" && !regForEmail.test(email) && (
+                                            <span className="text-danger">
+                                                Enter email correctly
+                                            </span>
+                                        )}
 
-                                    
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="Enter Email"
-                                                name="email"
-                                                onChange={(e) => {
-                                                    setEmail(e.target.value);
-                                                }}
-                                            />
-                                            {email != "" && !regForEmail.test(email) && (
-                                                <span className="text-danger">
-                                                    Enter email correctly
-                                                </span>
-                                            )}
-                                      
                                     </Form.Group>
 
                                     <Form.Group className="mb-3">
-                                       
-                                            <FormLabel>Password:</FormLabel>
-                                       
+                                        <FormLabel>Password:</FormLabel>
+                                        <Form.Control
+                                            type="password"
+                                            placeholder="Password"
+                                            name="password"
+                                            onChange={(e) => {
+                                                setPassword(e.target.value);
+                                            }}
+                                        />
+                                        {password != "" && password.length < 8 && (
+                                            <span className="text-danger">
+                                                Enter password correctly
+                                            </span>
+                                        )}
 
-                                        
-                                            <Form.Control
-                                                type="password"
-                                                placeholder="Password"
-                                                name="password"
-                                                onChange={(e) => {
-                                                    setPassword(e.target.value);
-                                                }}
-                                            />
-                                            {password != "" && password.length < 8 && (
-                                                <span className="text-danger">
-                                                    Enter password correctly
-                                                </span>
-                                            )}
-                                      
                                     </Form.Group>
 
                                     <Button variant="success" className="btn-block" type="submit">
@@ -149,10 +141,10 @@ export default function Login() {
                                             Forgot Password
                                         </a>
                                     </div>
-                                   
-                                        <h6 className='text-dark text-center pt-3'>OR SignUp with Social Login</h6>
-                                    
-                                        <div className="d-flex justify-content-center">
+
+                                    <h6 className='text-dark text-center pt-3'>OR SignUp with Social Login</h6>
+
+                                    <div className="d-flex justify-content-center">
                                         <SocialButton
                                             className="btn btn-danger p-2 mb-3 mt-2 mr-2"
                                             provider="google"
@@ -176,7 +168,7 @@ export default function Login() {
                                                 <Icon.Facebook size={25} />
                                             </i>
                                         </SocialButton>
-                                        
+
                                     </div>
                                 </Container>
                             </Form>

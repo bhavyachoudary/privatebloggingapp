@@ -1,13 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const port = 9999;
-const app = express()
-const path = require('path')
+const app = express();
+const path = require('path');
+const expressValidator = require('express-validator');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors());
 app.use(express.static(path.join(__dirname, "./public/")));
+// app.use(expressValidator());
 
 const connectDB = require('./config/db')
 connectDB()

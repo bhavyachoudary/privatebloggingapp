@@ -1,4 +1,4 @@
-import React , {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { getSingleBlog } from '../../config/Myservices';
 import { useLocation } from "react-router";
 import { Container, Tabs, Tab } from 'react-bootstrap';
@@ -21,23 +21,24 @@ export default function BlogPage() {
       .then((res) => {
         console.log(res.data);
         setPostdata(res.data.singleblog);
-    
+
       });
   }, []);
 
   return (
-      <Container>
-        <Container>
-          <img src={`/images/${postdata.blogProfile}`} className="w-75 img"/>
-        
-        <Container>
+    <Container className="mt-5 mb-5 p-3 shad">
+      <Container className="d-flex justify-content-center">
+        <img src={`/images/${postdata.myImage}`} className="w-50 img" />
+        <Container className="ml-4">
           <h2>{postdata.title}</h2>
-          <p>{postdata.des}</p>
+          <div dangerouslySetInnerHTML={{ __html: postdata.des }} >
+          </div>
+          <h6>{postdata.tags}</h6>
         </Container>
-        </Container>
-
       </Container>
-   
-  
+
+    </Container>
+
+
   )
 }
